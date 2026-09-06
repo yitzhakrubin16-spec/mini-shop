@@ -7,6 +7,7 @@ function HomePage() {
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -34,11 +35,20 @@ function HomePage() {
     return <p>{error}</p>
   }
 
+  const filteredProducts = products.filter(product =>
+    product.title.toLowerCase().includes(search.toLowerCase())
+  )
   return (
     <div>
       <h1>Products</h1>
 
-      {products.map((product) => (
+      <input 
+          type="text"
+          placeholder="Search products..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)} 
+          />
+      {filteredProducts.map((product) => (
         <ProductCard
         key={product.id}
         product={product}
