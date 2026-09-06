@@ -47,12 +47,16 @@ function HomePage() {
       search={search}
       setSearch={setSearch}
       />
-      {filteredProducts.map((product) => (
+      {filteredProducts.length === 0 ? (
+        <p>No products found</p>
+      ) : (
+      filteredProducts.map((product) => (
         <ProductCard
         key={product.id}
         product={product}
         />
-      ))}
+      ))
+    )}
     </div>
   )
 }
