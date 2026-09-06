@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import type { Product } from "../types/product"
 import ProductCard from "../components/ProductCard"
+import SearchBar from "../components/SearchBar"
 
 function HomePage() {
 
@@ -42,12 +43,10 @@ function HomePage() {
     <div>
       <h1>Products</h1>
 
-      <input 
-          type="text"
-          placeholder="Search products..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)} 
-          />
+      <SearchBar 
+      search={search}
+      setSearch={setSearch}
+      />
       {filteredProducts.map((product) => (
         <ProductCard
         key={product.id}
