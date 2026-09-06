@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import type { Product } from "../types/product"
+import ProductCard from "../components/ProductCard"
 
 function HomePage() {
 
@@ -38,10 +39,10 @@ function HomePage() {
       <h1>Products</h1>
 
       {products.map((product) => (
-        <div key={product.id}>
-          <h2>{product.title}</h2>
-          <p>${product.price}</p>
-        </div>
+        <ProductCard
+        key={product.id}
+        product={product}
+        />
       ))}
     </div>
   )
