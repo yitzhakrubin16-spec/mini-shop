@@ -12,9 +12,10 @@ function ProductCard({ product }: ProductCardProps) {
 
   const favorite = isFavorite(product.id)
   return (
-    <div>
+    <div className='product-card'>
       <Link to={`/products/${product.id}`}>
         <img 
+        className="product-card-image"
         src={product.image} 
         alt={product.title}
         width="150" />

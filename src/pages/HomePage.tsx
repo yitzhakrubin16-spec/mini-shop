@@ -40,12 +40,14 @@ function HomePage() {
       {filteredProducts.length === 0 ? (
         <p>No products found</p>
       ) : (
-      filteredProducts.map((product) => (
+        <div className="products-grid">
+      {filteredProducts.map((product) => (
         <ProductCard
         key={product.id}
         product={product}
         />
-      ))
+      ))}
+      </div>
     )}
     </div>
   )

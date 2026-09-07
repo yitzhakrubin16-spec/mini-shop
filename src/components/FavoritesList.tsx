@@ -7,14 +7,14 @@ type FavoritesListProps = {
 
 function FavoritesList({ favorites }: FavoritesListProps) {
   return (
-    <>
+    <div className="products-grid">
       {favorites.map((product) => (
         <ProductCard
           key={product.id}
           product={product}
         />
       ))}
-    </>
+    </div>
   )
 }
 
