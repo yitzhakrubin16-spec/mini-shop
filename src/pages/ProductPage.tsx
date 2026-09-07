@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router"
 import type { Product } from "../types/product"
 import { useFavoritesStore } from "../store/favoritesStore"
 import useFetch from "../hooks/useFetch"
+import ProductDetails from "../components/ProductDetails"
+
 
 function ProductPage() {
   const { id } = useParams()
@@ -34,11 +36,7 @@ function ProductPage() {
       <button onClick={() => navigate("/")}>
         Back to products
       </button>
-      <img src={product.image} alt={product.title} />
-      <h1>{product.title}</h1>
-      <p>{product.description}</p>
-      <p>{product.price}</p>
-      <p>{product.category}</p>
+      <ProductDetails product={product} />
       <button
       onClick={() => {
         if(favorite) {

@@ -1,5 +1,5 @@
 import { useFavoritesStore } from "../store/favoritesStore"
-import ProductCard from "../components/ProductCard"
+import FavoritesList from "../components/FavoritesList"
 
 function FavoritesPage() {
   const {favorites} = useFavoritesStore()
@@ -10,12 +10,8 @@ function FavoritesPage() {
       {favorites.length === 0 ? (
         <p>No favorites yet</p>
       ) : (
-        favorites.map((product) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-        />
-        )))}
+        <FavoritesList favorites={favorites} />
+        )}
     </div>
   )
 }
