@@ -1,44 +1,30 @@
-import { useEffect, useState } from "react"
+
 import { useNavigate, useParams } from "react-router"
 import type { Product } from "../types/product"
 import { useFavoritesStore } from "../store/favoritesStore"
+import useFetch from "../hooks/useFetch"
 
 function ProductPage() {
   const { id } = useParams()
-
-  const [product, setProduct] = useState<Product | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState("")
   const navigate = useNavigate()
   const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore()
   
-  useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${id}`)
-    .then((res) => {
-      if(!res.ok){
-        throw new Error ("Failed to load product")
-      }
-      return res.json()
-    })
-    .then((data) => {
-      setProduct(data)
-      setLoading(false)
-    })
-    .catch(() => {
-      setError("Failed to load product")
-      setLoading(false)
-    })
-  }, [id])
+   const {
+      data: product,
+      loading,
+      error
+    } = useFetch<Product>(`https://fakestoreapi.com/products/${id}`)
 
-  if(loading){
+  if (loading) {
     return <p>Loading...</p>
   }
-  if(error){
+
+  if (error) {
     return <p>{error}</p>
   }
 
   if (!product) {
-    return <p>Product not found</p>
+    return <p>No products found</p>
   }
 
   const favorite = isFavorite(product.id)

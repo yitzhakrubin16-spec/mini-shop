@@ -1,41 +1,31 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import type { Product } from "../types/product"
 import ProductCard from "../components/ProductCard"
 import SearchBar from "../components/SearchBar"
+import useFetch from "../hooks/useFetch"
 
 function HomePage() {
 
-  const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState("")
   const [search, setSearch] = useState("")
 
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-    .then((res) => {
-      if(!res.ok){
-        throw new Error("Failed to load products")
-      }
+  const {
+      data: products,
+      loading,
+      error
+    } = useFetch<Product[]>("https://fakestoreapi.com/products")
 
-      return res.json()
-    })
-    .then((data) => {
-      setProducts(data)
-      setLoading(false)
-    })
-    .catch(() => {
-      setError("Failed to load products")
-      setLoading(false)
-    })
-  }, [])
-
-  if(loading){
+  if (loading) {
     return <p>Loading...</p>
   }
-  if(error){
+
+  if (error) {
     return <p>{error}</p>
   }
 
+  if (!products) {
+    return <p>No products found</p>
+  }
+  
   const filteredProducts = products.filter(product =>
     product.title.toLowerCase().includes(search.toLowerCase())
   )
