@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import type { Product } from "../types/product"
+import { useFavoritesStore } from "../store/favoritesStore"
 
 function ProductPage() {
   const { id } = useParams()
@@ -8,6 +9,8 @@ function ProductPage() {
   const [product, setProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+  const navigate = useNavigate()
+  const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore()
   
   useEffect(() => {
     fetch(`https://fakestoreapi.com/products/${id}`)
@@ -37,13 +40,30 @@ function ProductPage() {
   if (!product) {
     return <p>Product not found</p>
   }
+
+  const favorite = isFavorite(product.id)
+
   return (
     <div>
+      <button onClick={() => navigate("/")}>
+        Back to products
+      </button>
       <img src={product.image} alt={product.title} />
       <h1>{product.title}</h1>
       <p>{product.description}</p>
       <p>{product.price}</p>
       <p>{product.category}</p>
+      <button
+      onClick={() => {
+        if(favorite) {
+          removeFavorite(product.id)
+        } else {
+          addFavorite(product)
+        }
+      }}
+    >
+        {favorite ? "Remove from favorites" : "Add to favorites"}
+      </button>
     </div>
   )
 }
