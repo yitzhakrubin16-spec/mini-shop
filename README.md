@@ -1,75 +1,43 @@
-# React + TypeScript + Vite
+# Mini Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+אפליקציית חנות קטנה שנבנתה עם React ו-TypeScript
 
-Currently, two official plugins are available:
+## פיצ'רים
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+הצגת מוצרים מ-Fake Store API, חיפוש מוצרים, עמוד פרטי מוצר, הוספה והסרה ממועדפים, מצב Light / DarK, מצבי loading, error empty, ניווט עם React Router
 
-## React Compiler
+## טכנולוגיות
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React, TypeScript, React Router, Zustand, Context API, CSS לא סיימתי
 
-## Expanding the ESLint configuration
+## ניהול State
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Zustand
+משמש לניהול המועדפים בכל האפליקציה.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+כולל:
+הוספת מוצר למועדפים, הסרת מוצר מהמועדפים, בדיקה אם מוצר נמצא במועדפים, הצגת מספר המועדפים ב-Header
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Context API
+משמש לניהול מצב התצוגה Light / Dark.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Hooks
 
-```
+"useState" לניהול state מקומי, למשל החיפוש
+"useEffect" לטעינת נתונים ופעולות צד
+"useRef" לפוקוס אוטומטי על שדה החיפוש
+"useParams" לקריאת מזהה המוצר מה-URL
+"useNavigate" לחזרה לעמוד המוצרים
+"useContext" לגישה ל-Theme
+"useFetch" Custom Hook לטעינת נתונים מה-API עם loading ו-error
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Routes
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+`/` רשימת מוצרים
+`/products/:id` פרטי מוצר
+`/favorites` מוצרים מועדפים
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## הרצת הפרויקט
 
-```
+npm install
+npm run dev
