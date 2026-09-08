@@ -14,6 +14,7 @@ function SearchBar({ search, setSearch }: SearchBarProps) {
     }, [])
     return (
       <input
+          className="search-input"
           ref={inputRef}
           type="text"
           placeholder="Search products..."
